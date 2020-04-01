@@ -1,0 +1,102 @@
+[
+	{
+		"name": "24 Fret 6 String Guitar",
+		"octaveBase": 1,
+		"fretCount": 24,
+		"stepSpan": 0.5,
+		"strings": [
+			{
+				"index": 0,
+				"tuneTo": 2.0,
+				"octave": 0
+			},
+			{
+				"index": 1,
+				"tuneTo": 4.5,
+				"octave": 0
+			},
+			{
+				"index": 2,
+				"tuneTo": 1,
+				"octave": 1
+			},
+			{
+				"index": 3,
+				"tuneTo": 3.5,
+				"octave": 1
+			},
+			{
+				"index": 4,
+				"tuneTo": 5.5,
+				"octave": 1
+			},
+			{
+				"index": 5,
+				"tuneTo": 2.0,
+				"octave": 2
+			}
+		]
+	},
+	{
+		"name": "22 Fret 4 String Bass Guitar",
+		"octaveBase": 0,
+		"fretCount": 22,
+		"stepSpan": 0.5,
+		"strings": [
+			{
+				"index": 0,
+				"tuneTo": 2.0,
+				"octave": 0
+			},
+			{
+				"index": 1,
+				"tuneTo": 4.5,
+				"octave": 0
+			},
+			{
+				"index": 2,
+				"tuneTo": 1,
+				"octave": 1
+			},
+			{
+				"index": 3,
+				"tuneTo": 3.5,
+				"octave": 1
+			}
+		]
+	},
+	{
+		"name": "22 Fret 5 String Banjo",
+		"octaveBase": 2,
+		"fretCount": 22,
+		"stepSpan": 0.5,
+		"strings": [
+			{
+				"index": 0,
+				"startAtFret": 5,
+				"tuneTo": 3.5,
+				"octave": 2
+			},
+			{
+				"index": 1,
+				"tuneTo": 1,
+				"octave": 0
+			},
+			{
+				"index": 2,
+				"tuneTo": 3.5,
+				"octave": 0
+			},
+			{
+				"index": 3,
+				"tuneTo": 5.5,
+				"octave": 0
+			},
+			{
+				"index": 4,
+				"tuneTo": 1,
+				"octave": 1
+			}
+		]
+	}
+]
