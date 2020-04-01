@@ -1,0 +1,10 @@
+[
+	{
+		"name": "Major Chord",
+		"intervals": [ 2, 1.5 ]
+	},
+	{
+		"name": "Minor Chord",
+		"intervals": [ 1.5, 2 ]
+	}
+]
