@@ -10,9 +10,10 @@ namespace FretboardCalculatorCore
         {
             OpenStringNote = tuneTo;
             Frets = new Fret[fretCount+1];
-            foreach(var fret in Frets)
+            for (var x = 0; x < Frets.Length; x++)
             {
-                fret.StepSpan = stepSpan;
+                Frets[x] = new Fret();
+                Frets[x].StepSpan = stepSpan;
             }
 
             if (modifiers != null)

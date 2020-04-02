@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FretboardCalculatorCore", "FretboardCalculatorCore\FretboardCalculatorCore.csproj", "{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FretboardCalculatorCore", "FretboardCalculatorCore\FretboardCalculatorCore.csproj", "{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FretboardCalculatorTests", "FretboardCalculatorTests\FretboardCalculatorTests.csproj", "{D6E56647-A805-4033-8DFC-EC88CF157BF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

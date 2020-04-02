@@ -15,36 +15,41 @@ namespace FretboardCalculatorCore
             }
             Strings = stringList.ToArray();
 
-            var usedNoteList = new List<UsedNote>();
-            var positionCount = 1;
-
-            usedNoteList.Add(new UsedNote()
+            if (pattern != null)
             {
-                NoteValue = pattern.StartNote,
-                PositionValue = ToRoman(positionCount),
-                PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : ToRoman(positionCount)
-            });
-            positionCount = positionCount++;
-
-            var lastNoteValue = pattern.StartNote;
-            foreach (var interval in pattern.Intervals)
-            {
-                var calcNoteValue = lastNoteValue + interval;
-
-
-                if (calcNoteValue >= 6)
-                    calcNoteValue = calcNoteValue - 6;
+                var usedNoteList = new List<UsedNote>();
+                var positionCount = 1;
 
                 usedNoteList.Add(new UsedNote()
                 {
-                    NoteValue = calcNoteValue,
+                    Index = positionCount - 1,
+                    NoteValue = pattern.StartNote,
                     PositionValue = ToRoman(positionCount),
                     PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : ToRoman(positionCount)
                 });
-                lastNoteValue = calcNoteValue;
-                positionCount = positionCount++;
+                positionCount++;
+
+                var lastNoteValue = pattern.StartNote;
+                foreach (var interval in pattern.Intervals)
+                {
+                    var calcNoteValue = lastNoteValue + interval;
+
+
+                    if (calcNoteValue >= 6)
+                        calcNoteValue = calcNoteValue - 6;
+
+                    usedNoteList.Add(new UsedNote()
+                    {
+                        Index = positionCount - 1,
+                        NoteValue = calcNoteValue,
+                        PositionValue = ToRoman(positionCount),
+                        PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : ToRoman(positionCount)
+                    });
+                    lastNoteValue = calcNoteValue;
+                    positionCount++;
+                }
+                UsedNotes = usedNoteList.ToArray();
             }
-            UsedNotes = usedNoteList.ToArray();
         }
 
         public string Name;
@@ -53,13 +58,41 @@ namespace FretboardCalculatorCore
 
         private string ToRoman(int number)
         {
-            if (number >= 40) return "XL" + ToRoman(number - 40);
-            if (number >= 10) return "X" + ToRoman(number - 10);
-            if (number >= 9) return "IX" + ToRoman(number - 9);
-            if (number >= 5) return "V" + ToRoman(number - 5);
-            if (number >= 4) return "IV" + ToRoman(number - 4);
-            if (number >= 1) return "I" + ToRoman(number - 1);
-            throw new ArgumentOutOfRangeException("Out of Range for Roman");
+            switch (number)
+            {
+                case 1:
+                    return "I";
+                case 2:
+                    return "II";
+                case 3:
+                    return "III";
+                case 4:
+                    return "IV";
+                case 5:
+                    return "V";
+                case 6:
+                    return "VI";
+                case 7:
+                    return "VII";
+                case 8:
+                    return "VIII";
+                case 9:
+                    return "IX";
+                case 10:
+                    return "X";
+                case 11:
+                    return "XI";
+                case 12:
+                    return "XII";
+                case 13:
+                    return "XIII";
+                case 14:
+                    return "XIV";
+                case 15:
+                    return "XV";
+                default:
+                    return "";
+            }
         }
     }
 }
