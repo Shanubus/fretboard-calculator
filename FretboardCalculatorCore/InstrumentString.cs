@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace FretboardCalculatorCore
 {
+    [JsonObject()]
     public class InstrumentString
     {
         public InstrumentString(decimal tuneTo, int fretCount, decimal stepSpan, FretModifier[] modifiers = null)
@@ -47,7 +50,9 @@ namespace FretboardCalculatorCore
             }
         }
 
+        [JsonProperty(PropertyName = "openStringNote", Required = Required.Always)]
         public decimal OpenStringNote;
+        [JsonProperty(PropertyName = "frets", Required = Required.Always)]
         public Fret[] Frets;
     }
 }

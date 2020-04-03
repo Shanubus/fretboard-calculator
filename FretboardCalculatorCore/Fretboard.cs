@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace FretboardCalculatorCore
 {
-    public class Fretboard
+    [JsonObject()]
+    public class Fretboard : IJsonOperations
     {
         public Fretboard(FretboardConfiguration configuration, IntervalPattern pattern)
         {
@@ -52,8 +55,11 @@ namespace FretboardCalculatorCore
             }
         }
 
+        [JsonProperty(PropertyName = "name", Required = Required.Always)]
         public string Name;
+        [JsonProperty(PropertyName = "strings", Required = Required.Always)]
         public InstrumentString[] Strings;
+        [JsonProperty(PropertyName = "usedNotes", Required = Required.DisallowNull)]
         public UsedNote[] UsedNotes;
 
         private string ToRoman(int number)
@@ -93,6 +99,19 @@ namespace FretboardCalculatorCore
                 default:
                     return "";
             }
+        }
+
+        public void LoadFromJsonString(string json)
+        {
+            var newObj = JsonConvert.DeserializeObject<Fretboard>(json);
+            this.Name = newObj.Name;
+            this.Strings = newObj.Strings;
+            this.UsedNotes = newObj.UsedNotes;
+        }
+
+        public string ToJsonString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
