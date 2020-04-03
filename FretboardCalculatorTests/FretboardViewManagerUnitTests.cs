@@ -2,16 +2,27 @@ using System;
 using Xunit;
 using System.Collections.Generic;
 using FretboardCalculatorCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace FretboardCalculatorTests
 {
     public class FretboardViewManagerUnitTests
     {
+        private const string configurationsPath = "https://fretboard-calculator-json.s3.amazonaws.com/fretboard-configurations.json";
+        private const string scalesPath = "https://fretboard-calculator-json.s3.amazonaws.com/scales.json";
+        private const string chordsPath = "https://fretboard-calculator-json.s3.amazonaws.com/chords.json";
+
+        private FretboardViewManager _fvm;
+        public FretboardViewManagerUnitTests()
+        {
+            _fvm = getFretboardViewManager();
+        }
+
         [Fact]
         public void GetFretboardWithoutPatternTest()
         {
-            var fvm = new FretboardViewManager("", "", "");
-            var fretboard = fvm.GetFretboard(getTwoStringBassForTesting());
+            var fretboard = _fvm.GetFretboard(getTwoStringBassForTesting());
 
             Assert.True(
                 fretboard.Strings.Length == 2 &&
@@ -30,12 +41,7 @@ namespace FretboardCalculatorTests
         [Fact]
         public void GetFretboardWithPatternTest()
         {
-            var fvm = new FretboardViewManager("", "", "");
-            var fretboard = fvm.GetFretboard(getTwoStringBassForTesting(), new IntervalPattern() {
-                Name = "Whole Half, Half Whole",
-                StartNote = 2.5M,
-                Intervals = new decimal[] { 1, 0.5M, 0.5M, 1 }
-            });
+            var fretboard = _fvm.GetFretboard(getTwoStringBassForTesting(), getIntervalPatternForTesting());
 
             Assert.True(
                 fretboard.UsedNotes[0].Index == 0 &&
@@ -59,34 +65,66 @@ namespace FretboardCalculatorTests
         [Fact]
         public void GetConfigurationsListTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var configurationList = _fvm.GetStoredConfigurationList();
+            Assert.True(
+                configurationList != null &&
+                configurationList[0].Length > 0,
+                "Key Values Do Not Match"
+                );
         }
         [Fact]
         public void GetScalesListTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var scalesList = _fvm.GetStoredScalesList();
+            Assert.True(
+                scalesList != null &&
+                scalesList[0].Length > 0,
+                "Key Values Do Not Match"
+                );
         }
         [Fact]
         public void GetChordsListTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var chordsList = _fvm.GetStoredChordsList();
+            Assert.True(
+                chordsList != null &&
+                chordsList[0].Length > 0,
+                "Key Values Do Not Match"
+                );
         }
         [Fact]
         public void GetConfigurationByNameTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var conf = _fvm.GetConfigurationByName("24 Fret 6 String Guitar");
+            Assert.True(conf.Name == "24 Fret 6 String Guitar", "Failed to get configuration by name");
         }
         [Fact]
         public void GetChordByNameTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var chord = _fvm.GetChordByName("Major Chord");
+            Assert.True(chord.Name == "Major Chord", "Failed to get chord by name");
         }
         [Fact]
         public void GetScaleByNameTest()
         {
-            Assert.True(1 == 2, "Not Implemented");
+            var scale = _fvm.GetScaleByName("Major Scale");
+            Assert.True(scale.Name == "Major Scale", "Failed to get scale by name");
         }
 
+        private FretboardViewManager getFretboardViewManager()
+        {
+            return new FretboardViewManager(configurationsPath, scalesPath, chordsPath);
+        }
+
+        private IntervalPattern getIntervalPatternForTesting()
+        {
+            return new IntervalPattern()
+            {
+                Name = "Whole Half, Half Whole",
+                StartNote = 2.5M,
+                Intervals = new decimal[] { 1, 0.5M, 0.5M, 1 }
+            };
+        }
         private FretboardConfiguration getTwoStringBassForTesting()
         {
             var stringList = new List<InstrumentStringConfiguration>();

@@ -11,15 +11,15 @@ namespace FretboardCalculatorCore
     {
         [JsonProperty(PropertyName = "index", Required = Required.Always)]
         public int Index;
-        [JsonProperty(PropertyName = "fretCount", Required = Required.Always)]
+        [JsonProperty(PropertyName = "fretCount", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int FretCount;
-        [JsonProperty(PropertyName = "startAtFret", Required = Required.DisallowNull)]
-        public int StartAtFret;
+        [JsonProperty(PropertyName = "startAtFret", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
+        public int? StartAtFret;
         [JsonProperty(PropertyName = "tuneTo", Required = Required.Always)]
         public decimal TuneTo;
         [JsonProperty(PropertyName = "octave", Required = Required.Always)]
         public int Octave;
-        [JsonProperty(PropertyName = "fretModifiers", Required = Required.DisallowNull)]
+        [JsonProperty(PropertyName = "fretModifiers", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
         public FretModifier[] FretModifiers;
     }
 }

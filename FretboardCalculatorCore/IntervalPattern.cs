@@ -11,11 +11,11 @@ namespace FretboardCalculatorCore
     {
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
         public string Name;
-        [JsonProperty(PropertyName = "startNote", Required = Required.Always)]
+        [JsonProperty(PropertyName = "startNote", Required = Required.Default)]
         public decimal StartNote;
         [JsonProperty(PropertyName = "intervals", Required = Required.Always)]
         public decimal[] Intervals;
-        [JsonProperty(PropertyName = "positions", Required = Required.DisallowNull)]
+        [JsonProperty(PropertyName = "positionName", Required = Required.Default)]
         public string[] Positions;
 
         public void LoadFromJsonString(string json)
