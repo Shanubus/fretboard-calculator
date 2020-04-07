@@ -102,7 +102,7 @@ Resources:
         FretboardViewManager:
           Type: Api
           Properties:
-            Path: /fretboard/{configurationName}/{intervalType}/{intervalName}
+            Path: /fretboard/{configurationName}/{intervalType}/{intervalName}/{keyOf}
             Method: get
 Outputs:
   FretboardCalculatorApi:

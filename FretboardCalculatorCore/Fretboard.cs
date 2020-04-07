@@ -33,6 +33,7 @@ namespace FretboardCalculatorCore
                 positionCount++;
 
                 var lastNoteValue = pattern.StartNote;
+                var lastIntervalValue = pattern.Intervals[0];
                 var first = true;
                 foreach (var interval in pattern.Intervals)
                 {
@@ -42,8 +43,8 @@ namespace FretboardCalculatorCore
                         continue;
                     }
 
-                    var calcNoteValue = lastNoteValue + interval;
-
+                    var calcNoteValue = lastNoteValue + lastIntervalValue;
+                    lastIntervalValue = interval;
 
                     if (calcNoteValue >= 6)
                         calcNoteValue = calcNoteValue - 6;
