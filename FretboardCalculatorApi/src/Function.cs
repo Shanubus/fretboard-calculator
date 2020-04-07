@@ -25,48 +25,48 @@ namespace FretboardCalculatorApi
         
         public async Task<APIGatewayProxyResponse> GetStoredConfigurationsList(APIGatewayProxyRequest apigProxyEvent, ILambdaContext context)
         {
-            var fretboardConfigurations = fvm.GetStoredConfigurationList();
+            var fretboardConfigurations = await Task.Run(() => fvm.GetStoredConfigurationList());
             return getResponse(fretboardConfigurations);
         }
 
         public async Task<APIGatewayProxyResponse> GetStoredConfigurationByName(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["name"]);
-            var fretboardConfiguration = fvm.GetConfigurationByName(qName);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetConfigurationByName(qName));
             return getResponse(fretboardConfiguration);
         }
 
         public async Task<APIGatewayProxyResponse> GetStoredChordsList(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
-            var fretboardConfiguration = fvm.GetStoredChordsList();
+            var fretboardConfiguration = await Task.Run(() => fvm.GetStoredChordsList());
             return getResponse(fretboardConfiguration);
         }
 
         public async Task<APIGatewayProxyResponse> GetStoredChordsByName(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["name"]);
-            var fretboardConfiguration = fvm.GetChordByName(qName);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetChordByName(qName));
             return getResponse(fretboardConfiguration);
         }
 
         public async Task<APIGatewayProxyResponse> GetStoredScalesList(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
-            var fretboardConfiguration = fvm.GetStoredScalesList();
+            var fretboardConfiguration = await Task.Run(() => fvm.GetStoredScalesList());
             return getResponse(fretboardConfiguration);
         }
 
         public async Task<APIGatewayProxyResponse> GetStoredScalesByName(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["name"]);
-            var fretboardConfiguration = fvm.GetScaleByName(qName);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetScaleByName(qName));
             return getResponse(fretboardConfiguration);
         }
 
         public async Task<APIGatewayProxyResponse> GetFretboard(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["configurationName"]);
-            var fretboardConfiguration = fvm.GetConfigurationByName(qName);
-            var fretboard = fvm.GetFretboard(fretboardConfiguration);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetConfigurationByName(qName));
+            var fretboard = await Task.Run(() => fvm.GetFretboard(fretboardConfiguration));
             return getResponse(fretboard);
         }
 
@@ -75,19 +75,19 @@ namespace FretboardCalculatorApi
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["configurationName"]);
             var iType = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalType"]);
             var iName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalName"]);
-            var fretboardConfiguration = fvm.GetConfigurationByName(qName);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetConfigurationByName(qName));
             var intervalType = iType;
             IntervalPattern intervals = null;
 
             if (intervalType == "scale")
             {
-                intervals = fvm.GetScaleByName(iName);
+                intervals = await Task.Run(() => fvm.GetScaleByName(iName));
             } else if (intervalType == "chord")
             {
-                intervals = fvm.GetChordByName(iName);
+                intervals = await Task.Run(() => fvm.GetChordByName(iName));
             }
 
-            var fretboard = fvm.GetFretboard(fretboardConfiguration, intervals);
+            var fretboard = await Task.Run(() => fvm.GetFretboard(fretboardConfiguration, intervals));
             return getResponse(fretboard);
         }
 
