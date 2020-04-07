@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AWS Files\**" />
+    <EmbeddedResource Remove="AWS Files\**" />
+    <None Remove="AWS Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="1.2.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FretboardCalculatorCore\FretboardCalculatorCore.csproj" />
+  </ItemGroup>
+  
+</Project>
+

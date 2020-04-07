@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sample SAM Template for FretboardCalculatorApi
+
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  GetStoredConfigurationsListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredConfigurationsList
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /fretboard-configurations
+            Method: get
+  GetStoredConfigurationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredConfigurationByName
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /fretboard-configurations/{name}
+            Method: get
+  GetStoredChordsListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredChordsList
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /chords
+            Method: get
+  GetStoredChordsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredChordsByName
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /chords/{name}
+            Method: get
+  GetStoredScalesListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredScalesList
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /scales
+            Method: get
+  GetStoredScalesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetStoredScalesByName
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /scales/{name}
+            Method: get
+  GetFretboardFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetFretboard
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /fretboard/{configurationName}
+            Method: get
+  GetFretboardWithIntervalsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetFretboardWithIntervals
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /fretboard/{configurationName}/{intervalType}/{intervalName}
+            Method: get
+Outputs:
+  FretboardCalculatorApi:
+    Description: "API Gateway endpoint URL for Prod stage of Fretboard Calculator API functions"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/fretboard-configurations/"
+  GetStoredConfigurationsListFunction:
+    Description: "Get a list of stored fretboard configurations"
+    Value: !GetAtt GetStoredConfigurationsListFunction.Arn
+  GetStoredConfigurationsFunction:
+    Description: "Get a stored configuration by name"
+    Value: !GetAtt GetStoredConfigurationsFunction.Arn
+  GetStoredChordsListFunction:
+    Description: "Get a list of stored chords"
+    Value: !GetAtt GetStoredChordsListFunction.Arn
+  GetStoredChordsFunction:
+    Description: "Get a chord by name"
+    Value: !GetAtt GetStoredChordsFunction.Arn
+  GetStoredScalesListFunction:
+    Description: "Get a list of stored scales"
+    Value: !GetAtt GetStoredScalesListFunction.Arn
+  GetStoredScalesFunction:
+    Description: "Get a stored scale by name"
+    Value: !GetAtt GetStoredScalesFunction.Arn
+  GetFretboardFunction:
+    Description: "Get a fretboard with no interval defined"
+    Value: !GetAtt GetFretboardFunction.Arn
+  GetFretboardWithIntervalsFunction:
+    Description: "Get a fretboard with scales or chord intervals defined"
+    Value: !GetAtt GetFretboardWithIntervalsFunction.Arn

@@ -5,25 +5,73 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FretboardCalculatorCore", "FretboardCalculatorCore\FretboardCalculatorCore.csproj", "{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FretboardCalculatorTests", "FretboardCalculatorTests\FretboardCalculatorTests.csproj", "{D6E56647-A805-4033-8DFC-EC88CF157BF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FretboardCalculatorTests", "FretboardCalculatorTests\FretboardCalculatorTests.csproj", "{D6E56647-A805-4033-8DFC-EC88CF157BF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FretboardCalculatorApi", "FretboardCalculatorApi\src\FretboardCalculatorApi.csproj", "{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FretboardCalculatorApiAwsFiles", "FretboardCalculatorApiAwsFiles", "{51D9A329-BD19-444B-9D7D-4D90B20CDA02}"
+	ProjectSection(SolutionItems) = preProject
+		FretboardCalculatorApi\omnisharp.json = FretboardCalculatorApi\omnisharp.json
+		FretboardCalculatorApi\template.yaml = FretboardCalculatorApi\template.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "events", "events", "{1CD4C505-8543-42D2-A148-2921E8E74CD3}"
+	ProjectSection(SolutionItems) = preProject
+		FretboardCalculatorApi\events\event.json = FretboardCalculatorApi\events\event.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Debug|x86.Build.0 = Debug|Any CPU
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|x64.Build.0 = Release|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFDD83BC-88A2-4C24-A92A-6096A8CC5799}.Release|x86.Build.0 = Release|Any CPU
 		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|x64.Build.0 = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Debug|x86.Build.0 = Debug|Any CPU
 		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|x64.ActiveCfg = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|x64.Build.0 = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6E56647-A805-4033-8DFC-EC88CF157BF3}.Release|x86.Build.0 = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|x64.Build.0 = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Debug|x86.Build.0 = Debug|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x64.ActiveCfg = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x64.Build.0 = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x86.ActiveCfg = Release|Any CPU
+		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1CD4C505-8543-42D2-A148-2921E8E74CD3} = {51D9A329-BD19-444B-9D7D-4D90B20CDA02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3233D1A-607B-465E-B9A0-9442E521224D}

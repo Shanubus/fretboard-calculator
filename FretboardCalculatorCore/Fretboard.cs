@@ -14,7 +14,7 @@ namespace FretboardCalculatorCore
             var stringList = new List<InstrumentString>();
             foreach(var instrumentString in configuration.Strings)
             {
-                stringList.Add(new InstrumentString(instrumentString.TuneTo, instrumentString.FretCount, configuration.StepSpan, instrumentString.FretModifiers));
+                stringList.Add(new InstrumentString(instrumentString.TuneTo, instrumentString.FretCount > 0 ? instrumentString.FretCount : configuration.FretCount, configuration.StepSpan, instrumentString.FretModifiers));
             }
             Strings = stringList.ToArray();
 
@@ -59,7 +59,7 @@ namespace FretboardCalculatorCore
         public string Name;
         [JsonProperty(PropertyName = "strings", Required = Required.Always)]
         public InstrumentString[] Strings;
-        [JsonProperty(PropertyName = "usedNotes", Required = Required.DisallowNull)]
+        [JsonProperty(PropertyName = "usedNotes", Required = Required.Default)]
         public UsedNote[] UsedNotes;
 
         private string ToRoman(int number)
