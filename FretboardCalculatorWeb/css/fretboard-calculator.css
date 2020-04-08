@@ -1,0 +1,44 @@
+#fretboard {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.string {
+    width: 25px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    top: 0;
+}
+
+.fret {
+    width: 25px;
+    height: 25px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    display: inline-block;
+    margin: 0;
+    padding: 12px 0 0 0;
+    text-align: center;
+}
+
+.fret:first-child {
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.fret:nth-child(2) {
+    border-top: 1px solid black;
+}
+
+.string:last-child .fret {
+    border-right: 1px solid black;
+}
+
+.usedNote {
+    background-color: tan;
+}
+
