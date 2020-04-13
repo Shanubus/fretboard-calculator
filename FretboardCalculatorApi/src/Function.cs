@@ -88,8 +88,7 @@ namespace FretboardCalculatorApi
             {
                 intervals = await Task.Run(() => fvm.GetChordByName(iName));
             }
-            intervals.StartNote = iKey;
-            intervals.IsFlatContext = sKey.ToUpper().Contains("FLAT") || sKey == "F";
+            intervals.StartNoteName = sKey;
 
             var fretboard = await Task.Run(() => fvm.GetFretboard(fretboardConfiguration, intervals));
             return getResponse(fretboard);
