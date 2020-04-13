@@ -41,7 +41,7 @@ namespace FretboardCalculatorTests
         [Fact]
         public void GetFretboardWithPatternTest()
         {
-            var fretboard = _fvm.GetFretboard(getTwoStringBassForTesting(), getIntervalPatternForTesting());
+            var fretboard = _fvm.GetFretboard(get5StringBanjoForTesting(), getIntervalPatternForTesting());
 
             Assert.True(
                 fretboard.UsedNotes[0].Index == 0 &&
@@ -160,6 +160,13 @@ namespace FretboardCalculatorTests
                 StepSpan = 0.5M,
                 Strings = stringList.ToArray()
             };
+        }
+
+        private FretboardConfiguration get5StringBanjoForTesting()
+        {
+            string banjoJson = "{\"name\":\"22 Fret 5 String Banjo\",\"octaveBase\":2,\"fretCount\":22,\"stepSpan\":0.5,\"strings\":[{\"index\":0,\"fretCount\":17,\"startAtFret\":5,\"tuneTo\":3.5,\"octave\":2},{\"index\":1,\"tuneTo\":1.0,\"octave\":0},{\"index\":2,\"tuneTo\":3.5,\"octave\":0},{\"index\":3,\"tuneTo\":5.5,\"octave\":0},{\"index\":4,\"tuneTo\":1.0,\"octave\":1}]}";
+            var conf = JsonConvert.DeserializeObject<FretboardConfiguration>(banjoJson);
+            return conf;
         }
     }
 }

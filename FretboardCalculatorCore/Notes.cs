@@ -18,5 +18,101 @@ namespace FretboardCalculatorCore
         public const decimal A = 4.5M;
         public const decimal Asharp = 5;
         public const decimal B = 5.5M;
+
+        public static decimal GetNoteValue(string noteName)
+        {
+            switch (noteName.ToUpper())
+            {
+                case "C":
+                    return Notes.C;
+                case "CSHARP":
+                case "DFLAT":
+                    return Notes.Csharp;
+                case "D":
+                    return Notes.D;
+                case "DSHARP":
+                case "EFLAT":
+                    return Notes.Dsharp;
+                case "E":
+                    return Notes.E;
+                case "F":
+                    return Notes.F;
+                case "FSHARP":
+                case "GFLAT":
+                    return Notes.Fsharp;
+                case "G":
+                    return Notes.G;
+                case "GSHARP":
+                case "AFLAT":
+                    return Notes.Gsharp;
+                case "A":
+                    return Notes.A;
+                case "ASHARP":
+                case "BFLAT":
+                    return Notes.Asharp;
+                case "B":
+                    return Notes.B;
+                default:
+                    return Notes.C;
+            }
+        }
+
+        public static string GetNoteName(decimal note, bool flatted = false)
+        {
+            var noteName = "";
+            switch (note)
+            {
+                case Notes.C:
+                    noteName = "C";
+                    break;
+                case Notes.Csharp:
+                    noteName = "C#";
+                    if (flatted)
+                        noteName = "Db";
+                    break;
+                case Notes.D:
+                    noteName = "D";
+                    break;
+                case Notes.Dsharp:
+                    noteName = "D#";
+                    if (flatted)
+                        noteName = "Eb";
+                    break;
+                case Notes.E:
+                    noteName = "E";
+                    break;
+                case Notes.F:
+                    noteName = "F";
+                    break;
+                case Notes.Fsharp:
+                    noteName = "F#";
+                    if (flatted)
+                        noteName = "Gb";
+                    break;
+                case Notes.G:
+                    noteName = "G";
+                    break;
+                case Notes.Gsharp:
+                    noteName = "G#";
+                    if (flatted)
+                        noteName = "Ab";
+                    break;
+                case Notes.A:
+                    noteName = "A";
+                    break;
+                case Notes.Asharp:
+                    noteName = "A#";
+                    if (flatted)
+                        noteName = "Bb";
+                    break;
+                case Notes.B:
+                    noteName = "B";
+                    break;
+                default:
+                    noteName = "";
+                    break;
+            }
+            return noteName;
+        }
     }
 }

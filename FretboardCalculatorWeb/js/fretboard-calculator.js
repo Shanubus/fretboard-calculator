@@ -26,10 +26,10 @@
             return;
         }
 
-        fretboardCalculatorContainerElement.append('<select id="fretboardConfigurationsSelect"></select>');
-        fretboardCalculatorContainerElement.append('<select id="patternTypesSelect"></select>');
-        fretboardCalculatorContainerElement.append('<select id="patternsSelect"><option value="">--First Select a Type--</option></select>');
-        fretboardCalculatorContainerElement.append('<select id="keyNoteSelect"></select>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="fretboardConfigurationsSelect" class="form-control form-control-lg"></select></p>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternTypesSelect" class="form-control form-control-lg"></select></p>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="keyNoteSelect" class="form-control form-control-lg"></select></p>');
         fretboardCalculatorContainerElement.append('<div id="fretboardContainer"></div>');
 
         fretboardContainer = $('#fretboardContainer');
@@ -117,14 +117,14 @@
                 var fretValue = "&nbsp;";
                 var selectedClass = "";
                 if (y == 0) {
-                    fretValue = getNoteName(json.strings[x].frets[y].note);
+                    fretValue = json.strings[x].frets[y].noteName;
                 }
 
                 if (y == 0 && usedNotes.includes(json.strings[x].frets[y].note))
                     selectedClass = " usedNote";
 
                 if (y != 0 && usedNotes.includes(json.strings[x].frets[y].note))
-                    fretValue = "X";
+                    fretValue =json.strings[x].frets[y].noteName;
 
                 fretboardString.append('<div id="string' + x + '-fret' + y + '" class="fret' + selectedClass + '">' + fretValue + '</div>');
             }
@@ -194,17 +194,23 @@
     }
 
     function getNoteName(noteValue) {
+        var flatted = false;
+        
         switch (noteValue) {
             case 0:
                 return "C";
                 break;
             case 0.5:
+                if (flatted)
+                    return "Db"
                 return "C#";
                 break;
             case 1:
                 return "D";
                 break;
             case 1.5:
+                if (flatted)
+                    return "Eb"
                 return "D#";
                 break;
             case 2:
@@ -214,18 +220,24 @@
                 return "F";
                 break;
             case 3.0:
+                if (flatted)
+                    return "Gb"
                 return "F#";
                 break;
             case 3.5:
                 return "G";
                 break;
             case 4:
+                if (flatted)
+                    return "Ab"
                 return "G#";
                 break;
             case 4.5:
                 return "A";
                 break;
             case 5:
+                if (flatted)
+                    return "Bb"
                 return "A#";
                 break;
             case 5.5:

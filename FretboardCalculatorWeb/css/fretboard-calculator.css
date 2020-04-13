@@ -6,7 +6,7 @@
 }
 
 .string {
-    width: 25px;
+    width: 50px;
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -15,13 +15,13 @@
 }
 
 .fret {
-    width: 25px;
-    height: 25px;
+    width: 50px;
+    height: 50px;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
     display: inline-block;
     margin: 0;
-    padding: 12px 0 0 0;
+    padding: 25px 0 0 0;
     text-align: center;
 }
 

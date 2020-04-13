@@ -13,6 +13,8 @@ namespace FretboardCalculatorCore
         public int Index;
         [JsonProperty(PropertyName = "noteValue", Required = Required.Always)]
         public decimal NoteValue;
+        [JsonProperty(PropertyName = "noteName", Required = Required.Always)]
+        public string NoteName;
         [JsonProperty(PropertyName = "positionValue", Required = Required.Always)]
         public string PositionValue;
         [JsonProperty(PropertyName = "positionName", Required = Required.DisallowNull)]

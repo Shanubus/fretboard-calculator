@@ -13,6 +13,8 @@ namespace FretboardCalculatorCore
         public string Name;
         [JsonProperty(PropertyName = "startNote", Required = Required.Default)]
         public decimal StartNote;
+        [JsonProperty(PropertyName = "isFlatContext", Required = Required.Default)]
+        public bool IsFlatContext;
         [JsonProperty(PropertyName = "intervals", Required = Required.Always)]
         public decimal[] Intervals;
         [JsonProperty(PropertyName = "positionName", Required = Required.Default)]

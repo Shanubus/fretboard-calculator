@@ -9,9 +9,10 @@ namespace FretboardCalculatorCore
     [JsonObject()]
     public class InstrumentString
     {
-        public InstrumentString(decimal tuneTo, int fretCount, decimal stepSpan, FretModifier[] modifiers = null)
+        public InstrumentString(decimal tuneTo, int fretCount, decimal stepSpan, FretModifier[] modifiers = null, int startAtFret = 0, bool isFlattedContext = false)
         {
             OpenStringNote = tuneTo;
+            StartAtFret = startAtFret;
             Frets = new Fret[fretCount+1];
             for (var x = 0; x < Frets.Length; x++)
             {
@@ -36,6 +37,7 @@ namespace FretboardCalculatorCore
                 if (lastNote == -1)
                 {
                     fret.Note = tuneTo;
+                    fret.NoteName = Notes.GetNoteName(tuneTo, isFlattedContext);
                     lastNote = tuneTo;
                 }
                 else
@@ -46,12 +48,18 @@ namespace FretboardCalculatorCore
                         lastNote = 0;
                     }
                     fret.Note = lastNote;
+                    fret.NoteName = Notes.GetNoteName(lastNote, isFlattedContext);
+
+                    //if (fret.NoteName.Contains('#') || fret.NoteName.Contains('b'))
+                    //    fret.NoteName = fret.NoteName + ":" + Notes.GetNoteName(lastNote, true);
                 }
             }
         }
 
         [JsonProperty(PropertyName = "openStringNote", Required = Required.Always)]
         public decimal OpenStringNote;
+        [JsonProperty(PropertyName = "startAtFret", Required = Required.Always)]
+        public int StartAtFret;
         [JsonProperty(PropertyName = "frets", Required = Required.Always)]
         public Fret[] Frets;
     }

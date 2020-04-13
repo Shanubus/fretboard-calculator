@@ -75,7 +75,8 @@ namespace FretboardCalculatorApi
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["configurationName"]);
             var iType = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalType"]);
             var iName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalName"]);
-            var iKey = getNoteValue(apiProxyEvent.PathParameters["keyOf"]);
+            var sKey = apiProxyEvent.PathParameters["keyOf"];
+            var iKey = Notes.GetNoteValue(sKey);
             var fretboardConfiguration = await Task.Run(() => fvm.GetConfigurationByName(qName));
             var intervalType = iType;
             IntervalPattern intervals = null;
@@ -88,47 +89,10 @@ namespace FretboardCalculatorApi
                 intervals = await Task.Run(() => fvm.GetChordByName(iName));
             }
             intervals.StartNote = iKey;
+            intervals.IsFlatContext = sKey.ToUpper().Contains("FLAT") || sKey == "F";
 
             var fretboard = await Task.Run(() => fvm.GetFretboard(fretboardConfiguration, intervals));
             return getResponse(fretboard);
-        }
-
-        private static decimal getNoteValue(string note)
-        {
-            switch (note.ToUpper())
-            {
-                case "C":
-                    return Notes.C;
-                case "CSHARP":
-                case "DFLAT":
-                    return Notes.Csharp;
-                case "D":
-                    return Notes.D;
-                case "DSHARP":
-                case "EFLAT":
-                    return Notes.Dsharp;
-                case "E":
-                    return Notes.E;
-                case "F":
-                    return Notes.F;
-                case "FSHARP":
-                case "GFLAT":
-                    return Notes.Fsharp;
-                case "G":
-                    return Notes.G;
-                case "GSHARP":
-                case "AFLAT":
-                    return Notes.Gsharp;
-                case "A":
-                    return Notes.A;
-                case "ASHARP":
-                case "BFLAT":
-                    return Notes.Asharp;
-                case "B":
-                    return Notes.B;
-                default:
-                    return Notes.C;
-            }
         }
 
         private static APIGatewayProxyResponse getResponse(object payload)

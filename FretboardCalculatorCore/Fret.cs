@@ -13,5 +13,7 @@ namespace FretboardCalculatorCore
         public decimal StepSpan;
         [JsonProperty(PropertyName = "note", Required = Required.Always)]
         public decimal Note;
+        [JsonProperty(PropertyName = "noteName", Required = Required.Always)]
+        public string NoteName;
     }
 }

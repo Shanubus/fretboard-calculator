@@ -14,18 +14,18 @@
 	},
 	{
 		"name": "Whole Tone Scale",
-		"intervals": [ 1 ]
+		"intervals": [ 1, 1, 1, 1, 1, 1 ]
 	},
 	{
 		"name": "Chromatic Scale",
-		"intervals": [ 0.5 ]
+		"intervals": [ 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ]
 	},
 	{
 		"name": "Whole Half Diminished",
-		"intervals": [ 1, 0.5 ]
+		"intervals": [ 1, 0.5, 1, 0.5, 1, 0.5, 1, 0.5 ]
 	},
 	{
 		"name": "Half Whole Diminished",
-		"intervals": [ 0.5, 1 ]
+		"intervals": [ 0.5, 1, 0.5, 1, 0.5, 1, 0.5, 1 ]
 	}
 ]

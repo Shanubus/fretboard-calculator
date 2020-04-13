@@ -74,6 +74,7 @@
 			{
 				"index": 0,
 				"startAtFret": 5,
+				"fretCount": 17,
 				"tuneTo": 3.5,
 				"octave": 2
 			},

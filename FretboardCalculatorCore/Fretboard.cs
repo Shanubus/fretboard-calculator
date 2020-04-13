@@ -12,9 +12,15 @@ namespace FretboardCalculatorCore
         {
             Name = configuration.Name;
             var stringList = new List<InstrumentString>();
+            var isFlattedContext = false;
+            if (pattern != null)
+            {
+                isFlattedContext = pattern.IsFlatContext;
+            }
+
             foreach(var instrumentString in configuration.Strings)
             {
-                stringList.Add(new InstrumentString(instrumentString.TuneTo, instrumentString.FretCount > 0 ? instrumentString.FretCount : configuration.FretCount, configuration.StepSpan, instrumentString.FretModifiers));
+                stringList.Add(new InstrumentString(instrumentString.TuneTo, instrumentString.FretCount > 0 ? instrumentString.FretCount : configuration.FretCount, configuration.StepSpan, instrumentString.FretModifiers, instrumentString.StartAtFret == null ? 0 : (int)instrumentString.StartAtFret, isFlattedContext));
             }
             Strings = stringList.ToArray();
 
@@ -27,6 +33,7 @@ namespace FretboardCalculatorCore
                 {
                     Index = positionCount - 1,
                     NoteValue = pattern.StartNote,
+                    NoteName = Notes.GetNoteName(pattern.StartNote, pattern.IsFlatContext),
                     PositionValue = ToRoman(positionCount),
                     PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : ToRoman(positionCount)
                 });
@@ -53,6 +60,7 @@ namespace FretboardCalculatorCore
                     {
                         Index = positionCount - 1,
                         NoteValue = calcNoteValue,
+                        NoteName = Notes.GetNoteName(calcNoteValue, pattern.IsFlatContext),
                         PositionValue = ToRoman(positionCount),
                         PositionName = (pattern.Positions != null && pattern.Positions[positionCount - 1] != null) ? pattern.Positions[positionCount - 1] : ToRoman(positionCount)
                     });
