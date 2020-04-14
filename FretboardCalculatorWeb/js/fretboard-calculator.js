@@ -10,6 +10,7 @@
     var patternsSelect;
     var keyNoteSelect;
     var fretboardContainer;
+    var progressVisible = false;
 
     $.fn.fretboardCalculator = function( options ) {
         fretboardCalculatorContainerElement = this;
@@ -26,6 +27,7 @@
             return;
         }
 
+        fretboardCalculatorContainerElement.append('<div id="fretboardContainerProgress"><img id="fretboardContainerProgressImage" src="/img/progress-image.gif" /></div>');
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="fretboardConfigurationsSelect" class="form-control form-control-lg"></select></p>');
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternTypesSelect" class="form-control form-control-lg"></select></p>');
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p>');
@@ -47,6 +49,22 @@
         getPatternTypesList();
         fillKeyNoteSelect();
     };
+
+    function handleProgressView() {
+        if (!progressVisible) {
+            $('#fretboardContainerProgress').height($('#fretboard-calculator').height()-10);
+            $('#fretboardContainerProgress').width($('#fretboard-calculator').width());
+            $('#fretboardContainerProgress').show();
+            progressVisible = true;
+        }
+    }
+
+    function hideProgressView() {
+        if (progressVisible) {
+            $('#fretboardContainerProgress').hide();
+            progressVisible = false;
+        }
+    }
 
     function buildFretboard() {
         var fretboardConfiguration = fretboardConfigurationsSelect.find(":selected").val();
@@ -98,6 +116,7 @@
     }
 
     function getJsonFromApi(endpoint, func) {
+        handleProgressView();
         $.getJSON(endpoint, null, func);
     }
 
@@ -129,6 +148,7 @@
                 fretboardString.append('<div id="string' + x + '-fret' + y + '" class="fret' + selectedClass + '">' + fretValue + '</div>');
             }
         }
+        hideProgressView();
     }
 
     function handleConfigurationsList(json) {
@@ -136,6 +156,7 @@
         for (var x = 0; x < json.length; x++) {
             fretboardConfigurationsSelect.append('<option value="' + json[x] + '">' + json[x] + '</option>');
         }
+        hideProgressView();
     }
 
     function handleConfigurationsListChanged() {
@@ -163,6 +184,7 @@
          for (var x = 0; x < json.length; x++) {
              patternsSelect.append('<option value="' + json[x] + '">' + json[x] + '</option>');
          }
+         hideProgressView();
     }
 
     function handlePatternsListChanged() {

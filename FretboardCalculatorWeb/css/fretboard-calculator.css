@@ -1,8 +1,27 @@
+#fretboard-calculator {
+    border: solid 1px black;
+    margin: 0;
+    padding: 10px;
+    min-height: 250px;
+    background-color: #F4F2EB;
+    text-align: center;
+}
+
 #fretboard {
     display: inline-block;
     margin: 0;
     padding: 0;
     line-height: 0;
+}
+
+#fretboardContainerProgress {
+    border: 2px solid gray;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background-color: black;
+    opacity: 75%;
+    text-align: center;
 }
 
 .string {
@@ -23,6 +42,7 @@
     margin: 0;
     padding: 25px 0 0 0;
     text-align: center;
+    background-color: white;
 }
 
 .fret:first-child {
