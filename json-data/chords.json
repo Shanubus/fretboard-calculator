@@ -1,10 +1,14 @@
 [
 	{
 		"name": "Major Chord",
-		"intervals": [ 2, 1.5, 2.5 ]
+		"intervals": [ 2, 1.5 ],
+		"startNote": 0,
+		"isFlatContext": false
 	},
 	{
 		"name": "Minor Chord",
-		"intervals": [ 1.5, 2, 2.5 ]
+		"intervals": [ 1.5, 2 ],
+		"startNote": 0,
+		"isFlatContext": false
 	}
 ]

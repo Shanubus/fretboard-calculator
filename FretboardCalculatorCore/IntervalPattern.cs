@@ -28,9 +28,13 @@ namespace FretboardCalculatorCore
         public IntervalPattern(string startNoteName)
         {
             _startNoteName = startNoteName;
+            _isFlatContext = false;
 
             startNoteName = startNoteName.Replace("#", "SHARP");
             startNoteName = startNoteName.Replace("b", "FLAT");
+
+            if (startNoteName.Contains("FLAT"))
+                _isFlatContext = true;
 
             _startNoteValue = Notes.GetNoteValue(startNoteName);
         }

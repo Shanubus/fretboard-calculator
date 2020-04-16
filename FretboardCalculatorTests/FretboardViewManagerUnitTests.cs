@@ -41,7 +41,7 @@ namespace FretboardCalculatorTests
         [Fact]
         public void GetFretboardWithPatternTest()
         {
-            var fretboard = _fvm.GetFretboard(get5StringBanjoForTesting(), getIntervalPatternForTesting());
+            var fretboard = _fvm.GetFretboard(get5StringBanjoForTesting(), getScaleWithModesForTesting());
 
             Assert.True(
                 fretboard.UsedNotes[0].Index == 0 &&
@@ -54,11 +54,11 @@ namespace FretboardCalculatorTests
                 fretboard.UsedNotes[2].PositionValue == "III" &&
                 fretboard.UsedNotes[3].PositionValue == "IV" &&
                 fretboard.UsedNotes[4].PositionValue == "V" &&
-                fretboard.UsedNotes[0].NoteValue == 2.5M &&
-                fretboard.UsedNotes[1].NoteValue == 3.5M &&
-                fretboard.UsedNotes[2].NoteValue == 4 &&
-                fretboard.UsedNotes[3].NoteValue == 4.5M &&
-                fretboard.UsedNotes[4].NoteValue == 5.5M,
+                fretboard.UsedNotes[0].NoteValue == 0M &&
+                fretboard.UsedNotes[1].NoteValue == 1M &&
+                fretboard.UsedNotes[2].NoteValue == 2M &&
+                fretboard.UsedNotes[3].NoteValue == 2.5M &&
+                fretboard.UsedNotes[4].NoteValue == 3.5M,
                 "Key Values Do Not Match"
                 );
         }
@@ -166,6 +166,13 @@ namespace FretboardCalculatorTests
         {
             string banjoJson = "{\"name\":\"22 Fret 5 String Banjo\",\"octaveBase\":2,\"fretCount\":22,\"stepSpan\":0.5,\"strings\":[{\"index\":0,\"fretCount\":17,\"startAtFret\":5,\"tuneTo\":3.5,\"octave\":2},{\"index\":1,\"tuneTo\":1.0,\"octave\":0},{\"index\":2,\"tuneTo\":3.5,\"octave\":0},{\"index\":3,\"tuneTo\":5.5,\"octave\":0},{\"index\":4,\"tuneTo\":1.0,\"octave\":1}]}";
             var conf = JsonConvert.DeserializeObject<FretboardConfiguration>(banjoJson);
+            return conf;
+        }
+
+        private IntervalPattern getScaleWithModesForTesting()
+        {
+            string scaleJson = "{\"name\": \"Major Scale\",\"intervals\": [ 1, 1, 0.5, 1, 1, 1, 0.5 ],\"positionName\": [\"Ionian\",\"Dorian\",\"Phrygian\",\"Lydian\",\"Mixolydian\",\"Aeolian\",\"Locrian\"],\"startNote\": 0,\"isFlatContext\": false}";
+            var conf = JsonConvert.DeserializeObject<IntervalPattern>(scaleJson);
             return conf;
         }
     }

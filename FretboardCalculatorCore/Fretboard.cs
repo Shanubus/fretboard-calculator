@@ -40,17 +40,13 @@ namespace FretboardCalculatorCore
                 positionCount++;
 
                 var lastNoteValue = pattern.StartNote;
-                var lastIntervalValue = pattern.Intervals[0];
-                var first = true;
+                decimal lastIntervalValue = 0;
                 foreach (var interval in pattern.Intervals)
                 {
-                    if (first)
-                    {
-                        first = false;
+                    if (pattern.Positions.Length == positionCount - 1)
                         continue;
-                    }
 
-                    var calcNoteValue = lastNoteValue + lastIntervalValue;
+                    var calcNoteValue = lastNoteValue + interval;
                     lastIntervalValue = interval;
 
                     if (calcNoteValue >= 6)

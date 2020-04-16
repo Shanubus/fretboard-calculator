@@ -10,22 +10,36 @@
 			"Mixolydian",
 			"Aeolian",
 			"Locrian"
-		]
+		],
+		"startNote": 0,
+		"isFlatContext": false
 	},
 	{
 		"name": "Whole Tone Scale",
-		"intervals": [ 1, 1, 1, 1, 1, 1 ]
+		"intervals": [ 1, 1, 1, 1, 1, 1 ],
+		"startNote": 0,
+		"isFlatContext": false
+
 	},
 	{
 		"name": "Chromatic Scale",
-		"intervals": [ 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ]
+		"intervals": [ 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ],
+		"startNote": 0,
+		"isFlatContext": false
+
 	},
 	{
 		"name": "Whole Half Diminished",
-		"intervals": [ 1, 0.5, 1, 0.5, 1, 0.5, 1, 0.5 ]
+		"intervals": [ 1, 0.5, 1, 0.5, 1, 0.5, 1, 0.5 ],
+		"startNote": 0,
+		"isFlatContext": false
+
 	},
 	{
 		"name": "Half Whole Diminished",
-		"intervals": [ 0.5, 1, 0.5, 1, 0.5, 1, 0.5, 1 ]
+		"intervals": [ 0.5, 1, 0.5, 1, 0.5, 1, 0.5, 1 ],
+		"startNote": 0,
+		"isFlatContext": false
+
 	}
 ]
