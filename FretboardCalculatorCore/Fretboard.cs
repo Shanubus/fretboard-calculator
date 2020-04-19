@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 namespace FretboardCalculatorCore
 {
     [JsonObject()]
     public class Fretboard : IJsonOperations
     {
+        public Fretboard(FretboardConfiguration configuration, IntervalPattern pattern, string positionValue) : this(configuration, pattern)
+        {
+            PositionHighlight = positionValue;
+        }
+
         public Fretboard(FretboardConfiguration configuration, IntervalPattern pattern)
         {
             Name = configuration.Name;
@@ -43,7 +49,7 @@ namespace FretboardCalculatorCore
                 decimal lastIntervalValue = 0;
                 foreach (var interval in pattern.Intervals)
                 {
-                    if (pattern.Positions.Length == positionCount - 1)
+                    if (pattern.Positions != null && (pattern.Positions.Length == positionCount - 1))
                         continue;
 
                     var calcNoteValue = lastNoteValue + interval;
@@ -51,6 +57,11 @@ namespace FretboardCalculatorCore
 
                     if (calcNoteValue >= 6)
                         calcNoteValue = calcNoteValue - 6;
+
+                    var checkIt = (from u in usedNoteList where u.NoteValue == calcNoteValue select u).FirstOrDefault();
+
+                    if (checkIt != null)
+                        continue;
 
                     usedNoteList.Add(new UsedNote()
                     {
@@ -64,7 +75,15 @@ namespace FretboardCalculatorCore
                     positionCount++;
                 }
                 UsedNotes = usedNoteList.ToArray();
+
+                if (PositionHighlight != "")
+                    calculatePositionHighlights();
             }
+        }
+
+        private void calculatePositionHighlights()
+        {
+
         }
 
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
@@ -73,6 +92,48 @@ namespace FretboardCalculatorCore
         public InstrumentString[] Strings;
         [JsonProperty(PropertyName = "usedNotes", Required = Required.Default)]
         public UsedNote[] UsedNotes;
+        [JsonProperty(PropertyName = "positionHighlight", Required = Required.Default)]
+        public string PositionHighlight { get; set; } = "";
+
+
+        //private int FromRoman(string value)
+        //{
+        //    switch (value)
+        //    {
+        //        case "I":
+        //            return 1;
+        //        case "II":
+        //            return 2;
+        //        case "III":
+        //            return 3;
+        //        case "IV":
+        //            return 4;
+        //        case "V":
+        //            return 5;
+        //        case "VI":
+        //            return 6;
+        //        case "VII":
+        //            return 7;
+        //        case "VIII":
+        //            return 8;
+        //        case "IX":
+        //            return 9;
+        //        case "X:
+        //            return 10;
+        //        case "XI":
+        //            return 11;
+        //        case "XII":
+        //            return 12;
+        //        case "XIII":
+        //            return 13;
+        //        case "XIV":
+        //            return 14;
+        //        case "XV":
+        //            return 15;
+        //        default:
+        //            return 0;
+        //    }
+        //}
 
         private string ToRoman(int number)
         {

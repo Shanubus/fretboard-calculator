@@ -70,6 +70,32 @@ namespace FretboardCalculatorApi
             return getResponse(fretboard);
         }
 
+        public async Task<APIGatewayProxyResponse> GetFretboardWithIntervalsAndPosition(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
+        {
+            var positionValue = WebUtility.UrlDecode(apiProxyEvent.PathParameters["positionValue"]);
+            var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["configurationName"]);
+            var iType = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalType"]);
+            var iName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["intervalName"]);
+            var sKey = apiProxyEvent.PathParameters["keyOf"];
+            var iKey = Notes.GetNoteValue(sKey);
+            var fretboardConfiguration = await Task.Run(() => fvm.GetConfigurationByName(qName));
+            var intervalType = iType;
+            IntervalPattern intervals = null;
+
+            if (intervalType == "scale")
+            {
+                intervals = await Task.Run(() => fvm.GetScaleByName(iName));
+            }
+            else if (intervalType == "chord")
+            {
+                intervals = await Task.Run(() => fvm.GetChordByName(iName));
+            }
+            intervals.StartNoteName = sKey;
+
+            var fretboard = await Task.Run(() => fvm.GetFretboard(fretboardConfiguration, intervals, positionValue));
+            return getResponse(fretboard);
+        }
+
         public async Task<APIGatewayProxyResponse> GetFretboardWithIntervals(APIGatewayProxyRequest apiProxyEvent, ILambdaContext context)
         {
             var qName = WebUtility.UrlDecode(apiProxyEvent.PathParameters["configurationName"]);

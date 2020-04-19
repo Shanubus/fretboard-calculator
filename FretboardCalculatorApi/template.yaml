@@ -104,6 +104,18 @@ Resources:
           Properties:
             Path: /fretboard/{configurationName}/{intervalType}/{intervalName}/{keyOf}
             Method: get
+  GetFretboardWithIntervalsAndPositionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/
+      Handler: FretboardCalculatorApi::FretboardCalculatorApi.Function::GetFretboardWithIntervalsAndPosition
+      Runtime: dotnetcore2.1
+      Events:
+        FretboardViewManager:
+          Type: Api
+          Properties:
+            Path: /fretboard/{configurationName}/{intervalType}/{intervalName}/{keyOf}/{positionValue}
+            Method: get
 Outputs:
   FretboardCalculatorApi:
     Description: "API Gateway endpoint URL for Prod stage of Fretboard Calculator API functions"
@@ -132,3 +144,6 @@ Outputs:
   GetFretboardWithIntervalsFunction:
     Description: "Get a fretboard with scales or chord intervals defined"
     Value: !GetAtt GetFretboardWithIntervalsFunction.Arn
+  GetFretboardWithIntervalsAndPositionFunction:
+    Description: "Get a fretboard with scales or chord intervals defined with highlighted position"
+    Value: !GetAtt GetFretboardWithIntervalsAndPositionFunction.Arn

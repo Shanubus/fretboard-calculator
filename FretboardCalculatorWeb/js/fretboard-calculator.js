@@ -9,6 +9,7 @@
     var patternTypesSelect;
     var patternsSelect;
     var keyNoteSelect;
+    var noteIndicatorType;
     var fretboardContainer;
     var progressVisible = false;
 
@@ -32,6 +33,8 @@
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternTypesSelect" class="form-control form-control-lg"></select></p>');
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p>');
         fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="keyNoteSelect" class="form-control form-control-lg"></select></p>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="noteIndicatorType" class="form-control form-control-lg"></select></p>');
+        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="positionHighlight" class="form-control form-control-lg"><option value="">--Select a Position--</option></select></p>');
         fretboardCalculatorContainerElement.append('<div id="fretboardContainer"></div>');
 
         fretboardContainer = $('#fretboardContainer');
@@ -39,15 +42,20 @@
         patternTypesSelect = $('#patternTypesSelect');
         patternsSelect = $('#patternsSelect');
         keyNoteSelect = $('#keyNoteSelect');
+        noteIndicatorType = $('#noteIndicatorType');
+        positionHighlight = $('#positionHighlight');
 
         fretboardConfigurationsSelect.change(handleConfigurationsListChanged);
         patternsSelect.change(handlePatternsListChanged);
         patternTypesSelect.change(handlePatternTypesListChanged);
         keyNoteSelect.change(handleKeyNoteListChanged);
+        noteIndicatorType.change(handleNoteIndicatorTypeChanged);
+        positionHighlight.change(handlePositionHighlightChanged);
 
         getConfigurationsList();
         getPatternTypesList();
         fillKeyNoteSelect();
+        fillNoteIndicatorTypes();
     };
 
     function handleProgressView() {
@@ -71,6 +79,7 @@
         var patternType = patternTypesSelect.find(":selected").val();
         var pattern = patternsSelect.find(":selected").val();
         var keyNote = keyNoteSelect.find(":selected").val();
+        var positionSelected = positionHighlight.find(":selected").val();
 
         if (patternType == "Scales")
             patternType = "scale";
@@ -81,11 +90,11 @@
         fretboardContainer.html('');
 
         if (fretboardConfiguration != '' && pattern != '' && keyNote != '') {
-            fretboardContainer.append('<h3>' + fretboardConfiguration + 
-            ' Fretboard with ' + pattern + ' pattern in the key of ' + keyNote + '</h3>');
-            
             var newPath = fretboardPath + "/" + fretboardConfiguration + "/" +
             patternType + "/" + pattern + "/" + keyNote;
+
+        if (positionSelected != "")
+            newPath = newPath + "/" + positionSelected;
 
             getJsonFromApi(settings.endpoint + newPath, handleFretboardRender);
         }
@@ -121,9 +130,18 @@
     }
 
     function handleFretboardRender(json) {
+        var indicatorType = noteIndicatorType.find(":selected").val();
         var usedNotes = [];
+        positionHighlight.html('');
+        positionHighlight.append('<option value="">--Select Position--</option>');
         for (var x = 0; x < json.usedNotes.length; x++) {
+            var selectedText = "";
             usedNotes.push(json.usedNotes[x].noteValue);
+
+            if (json.positionHighlight == json.usedNotes[x].positionValue)
+                selectedText = " selected";
+
+            positionHighlight.append('<option value="' + json.usedNotes[x].positionValue + '"' + selectedText + '>' + json.usedNotes[x].positionName + '</option>');
         }
 
         fretboardContainer.append('<div id="fretboard"></div>');
@@ -131,19 +149,27 @@
 
         for (var x = 0; x < json.strings.length; x++) {
             fretboardElement.append('<div id="string' + x + '" class="string"></div>');
+
             var fretboardString = $('#string' + x.toString())
             for (var y = 0; y < json.strings[x].frets.length; y++) {
                 var fretValue = "&nbsp;";
                 var selectedClass = "";
-                if (y == 0) {
+
+                if (y == 0)
                     fretValue = json.strings[x].frets[y].noteName;
-                }
 
                 if (y == 0 && usedNotes.includes(json.strings[x].frets[y].note))
                     selectedClass = " usedNote";
 
-                if (y != 0 && usedNotes.includes(json.strings[x].frets[y].note))
-                    fretValue =json.strings[x].frets[y].noteName;
+                if (y != 0 && usedNotes.includes(json.strings[x].frets[y].note)) {
+                    switch (indicatorType) {
+                        case "Dots":
+                            fretValue = '&#9679;';
+                            break;
+                        default:
+                            fretValue = json.strings[x].frets[y].noteName;
+                    }    
+                }
 
                 fretboardString.append('<div id="string' + x + '-fret' + y + '" class="fret' + selectedClass + '">' + fretValue + '</div>');
             }
@@ -195,6 +221,14 @@
         buildFretboard();
     }
 
+    function handleNoteIndicatorTypeChanged() {
+        buildFretboard();
+    }
+
+    function handlePositionHighlightChanged() {
+        buildFretboard();
+    }
+
     function fillKeyNoteSelect() {
         keyNoteSelect.append('<option value="C">C</option>');
         keyNoteSelect.append('<option value="Csharp">C#</option>');
@@ -215,59 +249,11 @@
         keyNoteSelect.append('<option value="B">B</option>');
     }
 
-    function getNoteName(noteValue) {
-        var flatted = false;
-        
-        switch (noteValue) {
-            case 0:
-                return "C";
-                break;
-            case 0.5:
-                if (flatted)
-                    return "Db"
-                return "C#";
-                break;
-            case 1:
-                return "D";
-                break;
-            case 1.5:
-                if (flatted)
-                    return "Eb"
-                return "D#";
-                break;
-            case 2:
-                return "E";
-                break;
-            case 2.5:
-                return "F";
-                break;
-            case 3.0:
-                if (flatted)
-                    return "Gb"
-                return "F#";
-                break;
-            case 3.5:
-                return "G";
-                break;
-            case 4:
-                if (flatted)
-                    return "Ab"
-                return "G#";
-                break;
-            case 4.5:
-                return "A";
-                break;
-            case 5:
-                if (flatted)
-                    return "Bb"
-                return "A#";
-                break;
-            case 5.5:
-                return "B";
-                break;
-            default:
-                return "";
-        }
+    function fillNoteIndicatorTypes() {
+        noteIndicatorType.append('<option value="Dots">Show As Dot Indicators</option>');
+        noteIndicatorType.append('<option value="Notes">Show As Note Names</option>');
+        // noteIndicatorType.append('<option value="Positions">Show Note As Position Number</option>');
+        // noteIndicatorType.append('<option value="Fingering">Show Fingering Suggestions</option>');
     }
 }( jQuery ));
 

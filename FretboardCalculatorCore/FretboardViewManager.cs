@@ -43,6 +43,11 @@ namespace FretboardCalculatorCore
             return new Fretboard(configuration, pattern);
         }
 
+        public Fretboard GetFretboard(FretboardConfiguration configuration, IntervalPattern pattern, string positionValue)
+        {
+            return new Fretboard(configuration, pattern, positionValue);
+        }
+
         public List<string> GetStoredConfigurationList()
         {
             return (from c in _configurations orderby c.Name select c.Name).ToList<string>();

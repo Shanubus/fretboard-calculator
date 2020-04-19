@@ -41,5 +41,11 @@
 		"startNote": 0,
 		"isFlatContext": false
 
+	},
+	{
+		"name": "Pentatonic",
+		"intervals": [ 1.5, 1, 1, 1.5, 1 ],
+		"startNote": 0,
+		"isFlatContext": false
 	}
 ]
