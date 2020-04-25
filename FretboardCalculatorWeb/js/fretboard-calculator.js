@@ -198,6 +198,7 @@
     }
 
     function handlePatternTypesListChanged() {
+        fretboardContainer.html('');
         var patternType = patternTypesSelect.find(":selected").val();
         patternsSelect.html('');
         patternsSelect.append('<option value="">--Select Pattern--</option>');

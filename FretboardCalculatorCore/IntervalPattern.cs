@@ -60,7 +60,7 @@ namespace FretboardCalculatorCore
         public bool IsFlatContext {
             get
             {
-                if (_startNoteName.ToUpper().Contains("FLAT") || _startNoteName.Contains("b") || _startNoteName == "F")
+                if (_startNoteName.ToUpper().Contains("FLAT") || _startNoteName.Contains("b") || _startNoteName == "F" || _startNoteName == "C")
                     _isFlatContext = true;
                 else
                     _isFlatContext = false;

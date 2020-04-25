@@ -15,5 +15,9 @@ namespace FretboardCalculatorCore
         public decimal Note;
         [JsonProperty(PropertyName = "noteName", Required = Required.Always)]
         public string NoteName;
+        [JsonProperty(PropertyName = "inPosition", Required = Required.Default)]
+        public bool InPosition;
+        [JsonProperty(PropertyName = "finger", Required = Required.Default)]
+        public int Finger;
     }
 }

@@ -49,9 +49,6 @@ namespace FretboardCalculatorCore
                     }
                     fret.Note = lastNote;
                     fret.NoteName = Notes.GetNoteName(lastNote, isFlattedContext);
-
-                    //if (fret.NoteName.Contains('#') || fret.NoteName.Contains('b'))
-                    //    fret.NoteName = fret.NoteName + ":" + Notes.GetNoteName(lastNote, true);
                 }
             }
         }

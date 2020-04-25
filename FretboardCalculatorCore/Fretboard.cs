@@ -40,8 +40,8 @@ namespace FretboardCalculatorCore
                     Index = positionCount - 1,
                     NoteValue = pattern.StartNote,
                     NoteName = Notes.GetNoteName(pattern.StartNote, pattern.IsFlatContext),
-                    PositionValue = ToRoman(positionCount),
-                    PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : ToRoman(positionCount)
+                    PositionValue = Notes.ToRoman(positionCount),
+                    PositionName = (pattern.Positions != null && pattern.Positions[0] != null) ? pattern.Positions[0] : Notes.ToRoman(positionCount)
                 });
                 positionCount++;
 
@@ -68,8 +68,8 @@ namespace FretboardCalculatorCore
                         Index = positionCount - 1,
                         NoteValue = calcNoteValue,
                         NoteName = Notes.GetNoteName(calcNoteValue, pattern.IsFlatContext),
-                        PositionValue = ToRoman(positionCount),
-                        PositionName = (pattern.Positions != null && pattern.Positions[positionCount - 1] != null) ? pattern.Positions[positionCount - 1] : ToRoman(positionCount)
+                        PositionValue = Notes.ToRoman(positionCount),
+                        PositionName = (pattern.Positions != null && pattern.Positions[positionCount - 1] != null) ? pattern.Positions[positionCount - 1] : Notes.ToRoman(positionCount)
                     });
                     lastNoteValue = calcNoteValue;
                     positionCount++;
@@ -77,13 +77,22 @@ namespace FretboardCalculatorCore
                 UsedNotes = usedNoteList.ToArray();
 
                 if (PositionHighlight != "")
-                    calculatePositionHighlights();
+                    calculatePositionHighlights(configuration.FretCount);
             }
         }
 
-        private void calculatePositionHighlights()
+        private void calculatePositionHighlights(int fretCount)
         {
+            var startNote = (from u in UsedNotes where u.PositionValue == PositionHighlight select u.NoteValue).FirstOrDefault();
 
+            foreach (var s in Strings)
+            {
+                //Skip short strings, assume drone like banjo
+                if (s.Frets.Length < fretCount)
+                {
+                    //Start with first fret, ignore open string
+                }
+            }
         }
 
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
@@ -94,85 +103,6 @@ namespace FretboardCalculatorCore
         public UsedNote[] UsedNotes;
         [JsonProperty(PropertyName = "positionHighlight", Required = Required.Default)]
         public string PositionHighlight { get; set; } = "";
-
-
-        //private int FromRoman(string value)
-        //{
-        //    switch (value)
-        //    {
-        //        case "I":
-        //            return 1;
-        //        case "II":
-        //            return 2;
-        //        case "III":
-        //            return 3;
-        //        case "IV":
-        //            return 4;
-        //        case "V":
-        //            return 5;
-        //        case "VI":
-        //            return 6;
-        //        case "VII":
-        //            return 7;
-        //        case "VIII":
-        //            return 8;
-        //        case "IX":
-        //            return 9;
-        //        case "X:
-        //            return 10;
-        //        case "XI":
-        //            return 11;
-        //        case "XII":
-        //            return 12;
-        //        case "XIII":
-        //            return 13;
-        //        case "XIV":
-        //            return 14;
-        //        case "XV":
-        //            return 15;
-        //        default:
-        //            return 0;
-        //    }
-        //}
-
-        private string ToRoman(int number)
-        {
-            switch (number)
-            {
-                case 1:
-                    return "I";
-                case 2:
-                    return "II";
-                case 3:
-                    return "III";
-                case 4:
-                    return "IV";
-                case 5:
-                    return "V";
-                case 6:
-                    return "VI";
-                case 7:
-                    return "VII";
-                case 8:
-                    return "VIII";
-                case 9:
-                    return "IX";
-                case 10:
-                    return "X";
-                case 11:
-                    return "XI";
-                case 12:
-                    return "XII";
-                case 13:
-                    return "XIII";
-                case 14:
-                    return "XIV";
-                case 15:
-                    return "XV";
-                default:
-                    return "";
-            }
-        }
 
         public void LoadFromJsonString(string json)
         {
