@@ -1,8 +1,7 @@
 #fretboard-calculator {
     border: solid 1px black;
-    margin: 0;
-    padding: 10px;
     min-height: 250px;
+    min-width: 300px;
     background-color: #F4F2EB;
     text-align: center;
 }
@@ -14,6 +13,14 @@
     line-height: 0;
 }
 
+#fretboardContainer {
+    min-width: 250px;
+}
+
+#topMenuContainer {
+    padding: 20px;
+}
+
 #fretboardContainerProgress {
     border: 2px solid gray;
     margin: 0;
@@ -22,6 +29,15 @@
     background-color: black;
     opacity: 75%;
     text-align: center;
+    z-index: 999999;
+}
+
+#optionsContainer {
+    border-right: none;
+    background-color: #555353;
+    color: #ffffff;
+    border-radius: 10px;
+    padding-bottom: 20px;
 }
 
 .string {
@@ -62,3 +78,8 @@
     background-color: tan;
 }
 
+.btn-default {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

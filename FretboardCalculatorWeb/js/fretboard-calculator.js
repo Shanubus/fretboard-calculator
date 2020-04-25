@@ -5,6 +5,8 @@
     const scalesPath = "scales";
     var settings = {};
     var fretboardCalculatorContainerElement;
+    var topMenuContainer;
+    var twoColumnContainer;
     var fretboardConfigurationsSelect;
     var patternTypesSelect;
     var patternsSelect;
@@ -12,6 +14,10 @@
     var noteIndicatorType;
     var fretboardContainer;
     var progressVisible = false;
+    var positionHighlight;
+    var positionHighlightContainer;
+    var optionsContainer;
+
 
     $.fn.fretboardCalculator = function( options ) {
         fretboardCalculatorContainerElement = this;
@@ -28,14 +34,35 @@
             return;
         }
 
-        fretboardCalculatorContainerElement.append('<div id="fretboardContainerProgress"><img id="fretboardContainerProgressImage" src="/img/progress-image.gif" /></div>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="fretboardConfigurationsSelect" class="form-control form-control-lg"></select></p>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternTypesSelect" class="form-control form-control-lg"></select></p>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="keyNoteSelect" class="form-control form-control-lg"></select></p>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="noteIndicatorType" class="form-control form-control-lg"></select></p>');
-        fretboardCalculatorContainerElement.append('<p class="select-list-container"><select id="positionHighlight" class="form-control form-control-lg"><option value="">--Select a Position--</option></select></p>');
-        fretboardCalculatorContainerElement.append('<div id="fretboardContainer"></div>');
+        fretboardCalculatorContainerElement.append('<div id="fretboardContainerProgress" class="row"><img id="fretboardContainerProgressImage" src="/img/progress-image.gif" /></div>');
+
+        fretboardCalculatorContainerElement.append('<div id="topMenuContainer" class="row"></div>');
+        topMenuContainer = $('#topMenuContainer');
+        topMenuContainer.append('<div class="col-md-6"><p><select id="fretboardConfigurationsSelect" class="form-control form-control-lg"></select></p></div>');
+        topMenuContainer.append('<div class="col-md-6"><p><select id="patternTypesSelect" class="form-control form-control-lg"></select></p></div>');
+        topMenuContainer.append('<div class="col-md-3"><p><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p></div>');
+        topMenuContainer.append('<div class="col-md-3"><p><select id="keyNoteSelect" class="form-control form-control-lg"></select></p></div>');
+
+        fretboardCalculatorContainerElement.append('<div id="twoColumnLayoutContainer" class="row"></div>');
+        twoColumnContainer = $('#twoColumnLayoutContainer');
+
+        twoColumnContainer.append('<div id="fretboardContainer" class="col-md-6"></div>');
+        twoColumnContainer.append('<div id="optionsContainer" class="col-md-5"><h3>View Options</h3></div>');
+        optionsContainer = $('#optionsContainer');
+        optionsContainer.append('<div class="col-md-12"><p><select id="noteIndicatorType" class="form-control form-control-lg"></select></p></div>');
+        optionsContainer.append('<div class="col-md-12" id="positionHighlightContainer"><p><select id="positionHighlight" class="form-control form-control-lg"><option value="">--Select a Position--</option></select></p></div>');
+        optionsContainer.append('<div class="col-md-12"><p><input type="checkbox" name="fingerings" id="fingeringsCheckbox" /> Show Finger Suggestions</p></div>');
+        optionsContainer.append('<h3>Related Chords</h3>');
+        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<h3>Related Scales</h3>');
+        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
 
         fretboardContainer = $('#fretboardContainer');
         fretboardConfigurationsSelect = $('#fretboardConfigurationsSelect');
@@ -44,6 +71,14 @@
         keyNoteSelect = $('#keyNoteSelect');
         noteIndicatorType = $('#noteIndicatorType');
         positionHighlight = $('#positionHighlight');
+        positionHighlightContainer = $('#positionHighlightContainer');
+
+        positionHighlightContainer.hide();
+        patternTypesSelect.hide();
+        patternsSelect.hide();
+        keyNoteSelect.hide();
+        noteIndicatorType.hide();
+        optionsContainer.hide();
 
         fretboardConfigurationsSelect.change(handleConfigurationsListChanged);
         patternsSelect.change(handlePatternsListChanged);
@@ -80,6 +115,38 @@
         var pattern = patternsSelect.find(":selected").val();
         var keyNote = keyNoteSelect.find(":selected").val();
         var positionSelected = positionHighlight.find(":selected").val();
+
+        if (fretboardConfiguration != '')
+            patternTypesSelect.show();
+        else {
+            optionsContainer.hide();
+            patternTypesSelect.hide();
+            patternsSelect.hide();
+            keyNoteSelect.hide();
+            noteIndicatorType.hide();
+            return;
+        }
+
+        if (patternType != '')
+            patternsSelect.show();
+        else {
+            optionsContainer.hide();
+            patternsSelect.hide();
+            keyNoteSelect.hide();
+            noteIndicatorType.hide();
+            return;
+        }
+
+        if (pattern != '') {
+            keyNoteSelect.show();
+            noteIndicatorType.show();
+        }
+        else {
+            optionsContainer.hide();
+            keyNoteSelect.hide();
+            noteIndicatorType.hide();
+            return;
+        }
 
         if (patternType == "Scales")
             patternType = "scale";
@@ -174,6 +241,9 @@
                 fretboardString.append('<div id="string' + x + '-fret' + y + '" class="fret' + selectedClass + '">' + fretValue + '</div>');
             }
         }
+        optionsContainer.show();
+        positionHighlightContainer.show();
+
         hideProgressView();
     }
 
@@ -203,6 +273,7 @@
         patternsSelect.html('');
         patternsSelect.append('<option value="">--Select Pattern--</option>');
         getPatternsList(patternType);
+        patternsSelect.show();
     }
 
     function handlePatternsList(json) {
@@ -253,8 +324,6 @@
     function fillNoteIndicatorTypes() {
         noteIndicatorType.append('<option value="Dots">Show As Dot Indicators</option>');
         noteIndicatorType.append('<option value="Notes">Show As Note Names</option>');
-        // noteIndicatorType.append('<option value="Positions">Show Note As Position Number</option>');
-        // noteIndicatorType.append('<option value="Fingering">Show Fingering Suggestions</option>');
     }
 }( jQuery ));
 
