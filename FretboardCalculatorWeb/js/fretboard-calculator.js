@@ -17,6 +17,9 @@
     var positionHighlight;
     var positionHighlightContainer;
     var optionsContainer;
+    var relatedChordsContainer;
+    var relatedScalesContainer;
+    var viewOptionsContainer;
 
 
     $.fn.fretboardCalculator = function( options ) {
@@ -43,26 +46,34 @@
         topMenuContainer.append('<div class="col-md-3"><p><select id="patternsSelect" class="form-control form-control-lg"><option value="">--First Select a Type--</option></select></p></div>');
         topMenuContainer.append('<div class="col-md-3"><p><select id="keyNoteSelect" class="form-control form-control-lg"></select></p></div>');
 
-        fretboardCalculatorContainerElement.append('<div id="twoColumnLayoutContainer" class="row"></div>');
+        fretboardCalculatorContainerElement.append('<div id="twoColumnLayoutContainer"></div>');
         twoColumnContainer = $('#twoColumnLayoutContainer');
 
+        twoColumnContainer.append('<div id="optionsContainer" class="col-md-6"><h3>View Options</h3></div>');
         twoColumnContainer.append('<div id="fretboardContainer" class="col-md-6"></div>');
-        twoColumnContainer.append('<div id="optionsContainer" class="col-md-5"><h3>View Options</h3></div>');
         optionsContainer = $('#optionsContainer');
-        optionsContainer.append('<div class="col-md-12"><p><select id="noteIndicatorType" class="form-control form-control-lg"></select></p></div>');
-        optionsContainer.append('<div class="col-md-12" id="positionHighlightContainer"><p><select id="positionHighlight" class="form-control form-control-lg"><option value="">--Select a Position--</option></select></p></div>');
-        optionsContainer.append('<div class="col-md-12"><p><input type="checkbox" name="fingerings" id="fingeringsCheckbox" /> Show Finger Suggestions</p></div>');
+        optionsContainer.append('<div id="viewOptionsContainer"><p><select id="noteIndicatorType" class="form-control form-control-lg"></select></p></div>');
+        viewOptionsContainer = $('#viewOptionsContainer');
+        viewOptionsContainer.append('<div class="col-md-12" id="positionHighlightContainer"><p><select id="positionHighlight" class="form-control form-control-lg"><option value="">--Select a Position--</option></select></p></div>');
+        viewOptionsContainer.append('<div class="col-md-12"><p><input type="checkbox" name="fingerings" id="fingeringsCheckbox" /> Show Finger Suggestions</p></div>');
+
         optionsContainer.append('<h3>Related Chords</h3>');
-        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<div><p id="relatedChordsContainer"></p></div>');
+
         optionsContainer.append('<h3>Related Scales</h3>');
-        optionsContainer.append('<button type="button" class="btn btn-default">C Major</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
-        optionsContainer.append('<button type="button" class="btn btn-default">A Minor</button>');
+        optionsContainer.append('<div><p id="relatedScalesContainer"></p></div>');
+
+        relatedChordsContainer = $('#relatedChordsContainer');
+        relatedScalesContainer = $('#relatedScalesContainer');
+
+        optionsContainer.accordion({ collapsible: true, active: false });
+
+        relatedChordsContainer.append('<button type="button" class="btn btn-default">Feature</button>');
+        relatedChordsContainer.append('<button type="button" class="btn btn-default">Coming</button>');
+        relatedChordsContainer.append('<button type="button" class="btn btn-default">Soon</button>');
+        relatedScalesContainer.append('<button type="button" class="btn btn-default">Feature</button>');
+        relatedScalesContainer.append('<button type="button" class="btn btn-default">Coming</button>');
+        relatedScalesContainer.append('<button type="button" class="btn btn-default">Soon</button>');
 
         fretboardContainer = $('#fretboardContainer');
         fretboardConfigurationsSelect = $('#fretboardConfigurationsSelect');
@@ -116,10 +127,11 @@
         var keyNote = keyNoteSelect.find(":selected").val();
         var positionSelected = positionHighlight.find(":selected").val();
 
+        optionsContainer.hide();
+
         if (fretboardConfiguration != '')
             patternTypesSelect.show();
         else {
-            optionsContainer.hide();
             patternTypesSelect.hide();
             patternsSelect.hide();
             keyNoteSelect.hide();
@@ -130,7 +142,6 @@
         if (patternType != '')
             patternsSelect.show();
         else {
-            optionsContainer.hide();
             patternsSelect.hide();
             keyNoteSelect.hide();
             noteIndicatorType.hide();
@@ -142,7 +153,6 @@
             noteIndicatorType.show();
         }
         else {
-            optionsContainer.hide();
             keyNoteSelect.hide();
             noteIndicatorType.hide();
             return;
@@ -256,6 +266,7 @@
     }
 
     function handleConfigurationsListChanged() {
+        fretboardConfigurationsSelect.children().first().attr('disabled','true');
         buildFretboard();
     }
 
@@ -269,7 +280,10 @@
 
     function handlePatternTypesListChanged() {
         fretboardContainer.html('');
+        keyNoteSelect.hide();
+        optionsContainer.hide();
         var patternType = patternTypesSelect.find(":selected").val();
+        patternTypesSelect.children().first().attr('disabled','true');
         patternsSelect.html('');
         patternsSelect.append('<option value="">--Select Pattern--</option>');
         getPatternsList(patternType);
@@ -286,6 +300,7 @@
     }
 
     function handlePatternsListChanged() {
+        patternsSelect.children().first().attr('disabled','true');
         buildFretboard();
     }
 

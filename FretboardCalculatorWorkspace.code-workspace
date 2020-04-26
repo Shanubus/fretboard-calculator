@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "FretboardCalculatorWeb"
+		},
+		{
+			"path": "json-data"
 		}
 	],
 	"settings": {}

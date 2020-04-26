@@ -15,6 +15,7 @@
 
 #fretboardContainer {
     min-width: 250px;
+    padding-bottom: 20px;
 }
 
 #topMenuContainer {
@@ -32,12 +33,13 @@
     z-index: 999999;
 }
 
+#twoColumnLayoutContainer {
+    padding-top: 0;
+}
+
 #optionsContainer {
     border-right: none;
-    background-color: #555353;
-    color: #ffffff;
-    border-radius: 10px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .string {
