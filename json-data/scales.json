@@ -1,6 +1,6 @@
 [
 	{
-		"name": "Major Scale",
+		"name": "Major",
 		"intervals": [ 1, 1, 0.5, 1, 1, 1, 0.5 ],
 		"positionName": [
 			"Ionian",
@@ -15,11 +15,70 @@
 		"isFlatContext": false
 	},
 	{
+		"name": "Melodic Minor",
+		"intervals": [ 1, 0.5, 1, 1, 1, 1 ],
+		"positionName": [
+			"Melodic Minor",
+			"Dorian b2",
+			"Lydian Augmented",
+			"Lydian Dominant",
+			"Hindu",
+			"Locrian 2",
+			"Super Locrian"
+		],
+		"startNote": 0,
+		"isFlatContext": false
+	},
+	{
+		"name": "Harmonic Minor",
+		"intervals": [ 1, 0.5, 1, 1, 0.5, 1.5 ],
+		"positionName": [
+			"Harmonic Minor",
+			"Locrian 6",
+			"Ionian #5",
+			"Dorian #4",
+			"Phyrgian 3",
+			"Lydian #2",
+			"Alt bb7"
+		],
+		"startNote": 0,
+		"isFlatContext": false
+	},
+	{
+		"name": "Harmonic Major",
+		"intervals": [ 1, 1, 0.5, 1, 0.5, 1.5 ],
+		"positionName": [
+			"Harmonic Major",
+			"Dorian b5",
+			"Phrygian b4",
+			"Lydian b3",
+			"Dominant b2",
+			"Lydian Augmented #2",
+			"Locrian bb7"
+		],
+		"startNote": 0,
+		"isFlatContext": false
+	},
+	{
+		"name": "Hungarian Minor",
+		"intervals": [ 1, 0.5, 1.5, 0.5, 0.5, 1.5 ],
+		"positionName": [
+			"Hungarian Minor",
+			"Oriental",
+			"Ionian Augmented #2",
+			"Locrian bb3 bb7",
+			"Double Harmonic",
+			"Lydian #6 #2",
+			"Alt 5 bb7"
+		],
+		"startNote": 0,
+		"isFlatContext": false
+	},
+	{
 		"name": "Whole Tone Scale",
 		"intervals": [ 1, 1, 1, 1, 1, 1 ],
 		"startNote": 0,
 		"isFlatContext": false
-
 	},
 	{
 		"name": "Chromatic Scale",
