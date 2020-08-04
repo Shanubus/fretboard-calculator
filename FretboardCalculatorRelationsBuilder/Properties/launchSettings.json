@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FretboardCalculatorRelationsBuilder": {
+      "commandName": "Project",
+      "commandLineArgs": "-p \"C:\\Users\\shanu\\source\\repos\\fretboard-calculator\\json-data\\scales.json\" -t SCALE -cp \"C:\\Users\\shanu\\source\\repos\\fretboard-calculator\\json-data\\chords.json\" -ct CHORD -o C:\\Users\\shanu\\source\\repos\\fretboard-calculator\\json-data\\scale_relations.json"
+    }
+  }
+}

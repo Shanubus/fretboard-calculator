@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "events", "events", "{1CD4C5
 		FretboardCalculatorApi\events\event.json = FretboardCalculatorApi\events\event.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{5E48A57E-AD69-4F64-9F1E-E5064DC28A8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FretboardCalculatorRelationsBuilder", "FretboardCalculatorRelationsBuilder\FretboardCalculatorRelationsBuilder.csproj", "{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,12 +70,25 @@ Global
 		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x64.Build.0 = Release|Any CPU
 		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{E40871A3-889D-4FBD-B264-04FBDAFC0DCB}.Release|x86.Build.0 = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|x64.Build.0 = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1CD4C505-8543-42D2-A148-2921E8E74CD3} = {51D9A329-BD19-444B-9D7D-4D90B20CDA02}
+		{6D7A9D6B-5C98-49BE-B36D-F0881FB55C0C} = {5E48A57E-AD69-4F64-9F1E-E5064DC28A8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3233D1A-607B-465E-B9A0-9442E521224D}
